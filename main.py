@@ -8,15 +8,13 @@ from gtts import gTTS
 from playsound import playsound
 from dotenv import load_dotenv
 
-# ─────────────────────────────────────────────
-# Configuração
-# ─────────────────────────────────────────────
+
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-SAMPLE_RATE = 44100   # Hz
-CHANNELS = 1          # Mono
-DURATION = 5          # segundos de gravação (ajuste conforme necessário)
+SAMPLE_RATE = 44100
+CHANNELS = 1
+DURATION = 5
 
 SYSTEM_PROMPT = """
 Você é um assistente inteligente e amigável que responde em português brasileiro.
@@ -25,10 +23,7 @@ Seja direto e conciso nas suas respostas, pois elas serão convertidas em áudio
 
 historico = [{"role": "system", "content": SYSTEM_PROMPT}]
 
-
-# ─────────────────────────────────────────────
 # 1. Gravação de áudio
-# ─────────────────────────────────────────────
 def gravar_audio(duracao: int = DURATION) -> str:
     """Grava áudio do microfone e salva como WAV temporário."""
     print(f"\n🎙️  Gravando por {duracao} segundos... Fale agora!")
@@ -46,9 +41,8 @@ def gravar_audio(duracao: int = DURATION) -> str:
     return tmp.name
 
 
-# ─────────────────────────────────────────────
+
 # 2. Transcrição com Whisper
-# ─────────────────────────────────────────────
 def transcrever_audio(caminho_audio: str) -> str:
     """Envia o áudio para o Whisper e retorna o texto transcrito."""
     print("🔍 Transcrevendo com Whisper...")
@@ -62,10 +56,7 @@ def transcrever_audio(caminho_audio: str) -> str:
     print(f"📝 Você disse: {texto}")
     return texto
 
-
-# ─────────────────────────────────────────────
 # 3. Resposta do ChatGPT
-# ─────────────────────────────────────────────
 def perguntar_chatgpt(pergunta: str) -> str:
     """Envia a pergunta ao ChatGPT mantendo o histórico da conversa."""
     historico.append({"role": "user", "content": pergunta})
@@ -82,9 +73,7 @@ def perguntar_chatgpt(pergunta: str) -> str:
     return texto_resposta
 
 
-# ─────────────────────────────────────────────
 # 4. Síntese de voz com gTTS
-# ─────────────────────────────────────────────
 def falar(texto: str) -> None:
     """Converte texto em áudio e reproduz."""
     print("🔊 Sintetizando voz...")
@@ -94,10 +83,7 @@ def falar(texto: str) -> None:
     playsound(tmp.name)
     os.unlink(tmp.name)
 
-
-# ─────────────────────────────────────────────
 # Loop principal
-# ─────────────────────────────────────────────
 def main():
     print("=" * 50)
     print("  🎤 Assistente de Voz com ChatGPT + Whisper")
