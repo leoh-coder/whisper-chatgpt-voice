@@ -119,4 +119,4 @@ whisper-chatgpt-voice/
 
 ## 👨‍💻 Autor
 
-**Leonardo Henrique** — [LinkedIn](https://linkedin.com/in/seu-perfil) | [GitHub](https://github.com/seu-usuario)
+**Leonardo Henrique Ramos Ferreira** — [LinkedIn](https://linkedin.com/in/seu-perfil) | [GitHub](https://github.com/seu-usuario)
